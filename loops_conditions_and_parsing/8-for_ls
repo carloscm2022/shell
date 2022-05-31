@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# displays the content of the current working directory
+file=$(ls);for f in $file;do echo "$f" | cut -d "-" -f2 ;done
