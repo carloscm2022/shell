@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+#Ejecutar el script 10-process_and_pid_file
+initialize(){ ./manage_my_process & /; }
+new_file(){ echo "$!" > /var/run/my_process.pid; }
+delete_file(){ sudo rm /var/run/my_process.pid; }
+killit(){ kill "$(cat /var/run/my_process.pid)"; }
+
+if [ "$1" == "start" ]; then
+        initialize; new_file
+        echo "manage_my_process started"
+elif [ "$1" == "stop" ]; then
+        killit; delete_file
+        echo "manage_my_process stopped"
+elif [ "$1" == "restart" ]; then
+        killit; delete_file; initialize; new_file
+        echo "manage_my_process restarted"
+else
+        echo "Usage: manage_my_process {start|stop|restart}"
+fi
